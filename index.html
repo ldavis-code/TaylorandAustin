@@ -31,6 +31,14 @@ body {
   background: url('border.png') center center / cover no-repeat;
   z-index: 1;
 }
+.hero-bg::after {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse 55% 60% at 50% 55%,
+    rgba(250,246,233,.75) 0%,
+    rgba(250,246,233,.45) 50%,
+    rgba(250,246,233,0) 100%);
+  z-index: 2;
+}
 /* Text container — sits in the artwork's clearing */
 .hero-content {
   position: relative; z-index: 5;
