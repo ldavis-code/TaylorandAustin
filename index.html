@@ -28,7 +28,7 @@ body {
 }
 .hero-bg {
   position: absolute; inset: 0;
-  background: url('border.png') center center / cover no-repeat;
+  background: url('border.png') center center / contain no-repeat;
   z-index: 1;
 }
 /* Text container — sits in the artwork's clearing */
@@ -37,6 +37,8 @@ body {
   text-align: center;
   padding: 40px 30px;
   max-width: 600px;
+  background: rgba(250,246,233,.75);
+  border-radius: 8px;
 }
 .wedding-of {
   font-family: 'Great Vibes', cursive;
