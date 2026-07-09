@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RSVP | Taylor Davis & Austin Smith-Bartlett</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Great+Vibes&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold: #c9a84c; --gold-light: #e8d48b; --gold-dark: #9e7a2d;
+  --emerald: #2d6b3f; --sage: #87a878; --cream: #faf6e9;
+  --text-brown: #4a3520; --brown-sepia: #8b6f47;
+  --brown-walnut: #6d4c41; --brown-choc: #5d4037;
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'EB Garamond', 'Cormorant Garamond', serif;
+  color: var(--text-brown); overflow-x: hidden;
+  background: var(--cream);
+  min-height: 100vh;
+  position: relative;
+}
+.page-bg {
+  position: fixed; inset: 0;
+  background: url('border.png') center center / cover no-repeat;
+  z-index: 0;
+}
+.page-bg::after {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse 70% 75% at 50% 50%,
+    rgba(250,246,233,.95) 0%,
+    rgba(250,246,233,.85) 45%,
+    rgba(250,246,233,.5) 100%);
+}
+.wrap {
+  position: relative; z-index: 2;
+  max-width: 640px; margin: 0 auto;
+  padding: 60px 24px 80px;
+  text-align: center;
+}
+.back-link {
+  display: inline-block; margin-bottom: 30px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: .8rem; letter-spacing: 3px; text-transform: uppercase;
+  text-decoration: none; color: var(--brown-walnut); transition: .3s;
+}
+.back-link:hover { color: var(--gold-dark); }
+.page-sub {
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  color: var(--gold-dark); margin-bottom: 4px;
+}
+.page-title {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: clamp(1.4rem, 3.5vw, 2rem);
+  letter-spacing: 4px; color: var(--text-brown);
+  margin-bottom: 10px;
+}
+.page-detail {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic; font-weight: 300;
+  font-size: clamp(.95rem, 2.2vw, 1.15rem);
+  color: var(--brown-sepia); letter-spacing: 2px;
+  margin-bottom: 24px;
+}
+.divider {
+  width: 160px; height: 1.5px; margin: 0 auto 34px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  position: relative;
+}
+.divider::after {
+  content: '\2726'; position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  font-size: 12px; color: var(--gold);
+}
+.form-card {
+  text-align: left;
+  padding: 36px 30px;
+  border: 1px solid rgba(201,168,76,.3);
+  background: rgba(255,255,255,.75);
+  box-shadow: 0 4px 24px rgba(74,53,32,.07);
+}
+.field { margin-bottom: 22px; }
+.field label {
+  display: block;
+  font-family: 'Cinzel Decorative', serif;
+  font-size: .72rem; letter-spacing: 2.5px; text-transform: uppercase;
+  color: var(--brown-walnut); margin-bottom: 8px;
+}
+.field input[type="text"], .field input[type="email"],
+.field select, .field textarea {
+  width: 100%; padding: 11px 14px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem; color: var(--text-brown);
+  background: rgba(250,246,233,.7);
+  border: 1px solid rgba(201,168,76,.4);
+  outline: none; transition: border-color .3s, box-shadow .3s;
+  border-radius: 0; appearance: none; -webkit-appearance: none;
+}
+.field select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%239e7a2d' stroke-width='1.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 14px center;
+}
+.field input:focus, .field select:focus, .field textarea:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(201,168,76,.12);
+}
+.field textarea { min-height: 90px; resize: vertical; }
+.attend-row { display: flex; gap: 12px; flex-wrap: wrap; }
+.attend-option { flex: 1 1 220px; position: relative; }
+.attend-option input { position: absolute; opacity: 0; pointer-events: none; }
+.attend-option span {
+  display: block; text-align: center;
+  padding: 13px 10px; cursor: pointer;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem; letter-spacing: 1.5px;
+  color: var(--brown-walnut);
+  border: 1px solid rgba(201,168,76,.4);
+  background: rgba(250,246,233,.7);
+  transition: .3s;
+}
+.attend-option input:checked + span {
+  color: var(--cream);
+  background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-dark));
+  border-color: var(--gold-dark);
+}
+.attend-option input:focus-visible + span { box-shadow: 0 0 0 3px rgba(201,168,76,.3); }
+.submit-btn {
+  display: block; width: 100%; margin-top: 6px; padding: 15px 44px;
+  font-family: 'Cinzel Decorative', serif;
+  font-size: .84rem; letter-spacing: 4px; text-transform: uppercase;
+  color: var(--cream);
+  background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-dark));
+  border: none; cursor: pointer; transition: .4s;
+  box-shadow: 0 4px 14px rgba(201,168,76,.2);
+}
+.submit-btn:hover:not(:disabled) { box-shadow: 0 6px 22px rgba(201,168,76,.35); transform: translateY(-2px); }
+.submit-btn:disabled { opacity: .6; cursor: wait; }
+.form-status {
+  margin-top: 18px; text-align: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem; line-height: 1.6;
+  display: none;
+}
+.form-status.error { color: #8b3a2e; display: block; }
+.thanks {
+  display: none;
+  padding: 50px 26px;
+  border: 1px solid rgba(201,168,76,.3);
+  background: rgba(255,255,255,.75);
+  box-shadow: 0 4px 24px rgba(74,53,32,.07);
+}
+.thanks .big {
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(2rem, 5vw, 2.8rem);
+  color: var(--gold-dark); margin-bottom: 12px;
+}
+.thanks p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem; line-height: 1.8; color: var(--brown-choc);
+}
+.footer-note {
+  margin-top: 40px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: .85rem; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--brown-sepia); opacity: .85;
+}
+@media(max-width:480px) {
+  .wrap { padding: 40px 16px 60px; }
+  .form-card { padding: 28px 18px; }
+}
+</style>
+</head>
+<body>
+
+<div class="page-bg"></div>
+
+<div class="wrap">
+  <a class="back-link" href="index.html">&larr; Back to our wedding</a>
+
+  <p class="page-sub">Kindly respond</p>
+  <h1 class="page-title">RSVP</h1>
+  <p class="page-detail">Saturday, April 27, 2027 &middot; Boulder, Colorado</p>
+  <div class="divider"></div>
+
+  <form class="form-card" id="rsvpForm" novalidate>
+    <div class="field">
+      <label for="guestName">Your name(s)</label>
+      <input type="text" id="guestName" name="name" required autocomplete="name" placeholder="First &amp; last name of each guest">
+    </div>
+
+    <div class="field">
+      <label for="guestEmail">Email</label>
+      <input type="email" id="guestEmail" name="email" required autocomplete="email" placeholder="So we can confirm with you">
+    </div>
+
+    <div class="field">
+      <label>Will you be joining us?</label>
+      <div class="attend-row">
+        <label class="attend-option">
+          <input type="radio" name="attending" value="Joyfully accepts" required>
+          <span>Joyfully accepts</span>
+        </label>
+        <label class="attend-option">
+          <input type="radio" name="attending" value="Regretfully declines">
+          <span>Regretfully declines</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="guestCount">Number of guests</label>
+      <select id="guestCount" name="guests">
+        <option value="1">1</option>
+        <option value="2" selected>2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="dietary">Dietary restrictions</label>
+      <input type="text" id="dietary" name="dietary" placeholder="Allergies, vegetarian, vegan&hellip;">
+    </div>
+
+    <div class="field">
+      <label for="note">A note for the couple <em style="text-transform:none;letter-spacing:0">(optional)</em></label>
+      <textarea id="note" name="note" placeholder="A song request, well wishes, anything at all"></textarea>
+    </div>
+
+    <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+
+    <button type="submit" class="submit-btn" id="submitBtn">Send RSVP</button>
+    <p class="form-status" id="formStatus"></p>
+  </form>
+
+  <div class="thanks" id="thanksCard">
+    <p class="big">Thank you!</p>
+    <p>Your RSVP has been received.<br>We cannot wait to celebrate with you under the stars.</p>
+  </div>
+
+  <p class="footer-note">Taylor &amp; Austin &middot; April 27, 2027</p>
+</div>
+
+<script>
+(function(){
+  var form = document.getElementById('rsvpForm');
+  var btn = document.getElementById('submitBtn');
+  var status = document.getElementById('formStatus');
+  // Assembled at runtime to keep the address away from address-harvesting bots
+  var inbox = ['ldavis', 'trioweb.org'].join('@');
+  var endpoint = 'https://formsubmit.co/ajax/' + inbox;
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    status.className = 'form-status';
+    status.textContent = '';
+
+    if (!form.reportValidity()) return;
+
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+
+    var data = new FormData(form);
+    data.append('_subject', 'Wedding RSVP — ' + (data.get('name') || 'Guest'));
+    data.append('_template', 'table');
+
+    fetch(endpoint, {
+      method: 'POST',
+      body: data,
+      headers: { 'Accept': 'application/json' }
+    }).then(function(res){
+      if (!res.ok) throw new Error('Request failed');
+      return res.json();
+    }).then(function(){
+      form.style.display = 'none';
+      document.getElementById('thanksCard').style.display = 'block';
+      document.querySelector('.divider').scrollIntoView({behavior:'smooth'});
+    }).catch(function(){
+      btn.disabled = false;
+      btn.textContent = 'Send RSVP';
+      status.className = 'form-status error';
+      status.innerHTML = 'Something went wrong sending your RSVP. Please try again, or email us directly at <a href="mailto:' + inbox + '" style="color:inherit">' + inbox + '</a>.';
+    });
+  });
+})();
+</script>
+</body>
+</html>

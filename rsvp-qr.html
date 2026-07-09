@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RSVP QR Card | Taylor & Austin</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Great+Vibes&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold: #c9a84c; --gold-dark: #9e7a2d; --cream: #faf6e9;
+  --text-brown: #4a3520; --brown-sepia: #8b6f47;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: 'Cormorant Garamond', serif;
+  background: #ece5d3; color: var(--text-brown);
+  min-height: 100vh;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 40px 16px;
+}
+.card {
+  width: 5in; max-width: 100%;
+  background: var(--cream);
+  border: 1.5px solid var(--gold);
+  outline: 1px solid rgba(201,168,76,.35);
+  outline-offset: 5px;
+  padding: 44px 34px 38px;
+  text-align: center;
+  box-shadow: 0 8px 30px rgba(74,53,32,.15);
+}
+.names {
+  font-family: 'Great Vibes', cursive;
+  font-size: 2.1rem; color: var(--gold-dark);
+  line-height: 1.2;
+}
+.kindly {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: .82rem; letter-spacing: 4px; text-transform: uppercase;
+  margin: 14px 0 4px;
+}
+.date {
+  font-style: italic; font-weight: 300;
+  font-size: .95rem; letter-spacing: 2px; color: var(--brown-sepia);
+  margin-bottom: 20px;
+}
+.divider {
+  width: 130px; height: 1.5px; margin: 0 auto 24px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  position: relative;
+}
+.divider::after {
+  content: '\2726'; position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%,-50%); font-size: 11px; color: var(--gold);
+}
+.qr {
+  width: 2.2in; height: 2.2in; display: block; margin: 0 auto 20px;
+}
+.scan {
+  font-size: 1.05rem; letter-spacing: 1px; line-height: 1.6;
+}
+.url {
+  font-size: .8rem; letter-spacing: 1px; color: var(--brown-sepia);
+  margin-top: 8px; word-break: break-all;
+}
+.print-hint {
+  margin-top: 26px; font-size: .9rem; color: var(--brown-sepia);
+  text-align: center;
+}
+.print-hint button {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: .72rem; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--cream); background: var(--gold-dark);
+  border: none; padding: 10px 26px; cursor: pointer; margin-top: 8px;
+}
+@media print {
+  body { background: none; padding: 0; min-height: auto; }
+  .card { box-shadow: none; }
+  .print-hint { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="card">
+  <p class="names">Taylor &amp; Austin</p>
+  <p class="kindly">Kindly RSVP</p>
+  <p class="date">Saturday, April 27, 2027 &middot; Boulder, Colorado</p>
+  <div class="divider"></div>
+  <img class="qr" src="rsvp-qr.svg" alt="QR code linking to the RSVP page">
+  <p class="scan">Scan with your phone's camera<br>to respond online</p>
+  <p class="url">ldavis-code.github.io/TaylorandAustin/rsvp.html</p>
+</div>
+
+<div class="print-hint">
+  <p>This card prints at 5&Prime; wide &mdash; perfect for invitation inserts.</p>
+  <button onclick="window.print()">Print</button>
+</div>
+
+</body>
+</html>
