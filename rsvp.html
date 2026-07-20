@@ -106,6 +106,14 @@ body {
   box-shadow: 0 0 0 3px rgba(201,168,76,.12);
 }
 .field textarea { min-height: 90px; resize: vertical; }
+.meal-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+.meal-row .guest-tag {
+  flex: 0 0 68px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: .9rem; letter-spacing: 1px;
+  color: var(--brown-sepia); font-style: italic;
+}
+.meal-row select { flex: 1; }
 .attend-row { display: flex; gap: 12px; flex-wrap: wrap; }
 .attend-option { flex: 1 1 220px; position: relative; }
 .attend-option input { position: absolute; opacity: 0; pointer-events: none; }
@@ -218,6 +226,11 @@ body {
       </select>
     </div>
 
+    <div class="field" id="mealField">
+      <label>Entr&eacute;e selection <em style="text-transform:none;letter-spacing:0">(one per guest)</em></label>
+      <div id="mealRows"></div>
+    </div>
+
     <div class="field">
       <label for="dietary">Dietary restrictions</label>
       <input type="text" id="dietary" name="dietary" placeholder="Allergies, vegetarian, vegan&hellip;">
@@ -250,6 +263,55 @@ body {
   // Assembled at runtime to keep the address away from address-harvesting bots
   var inbox = ['tl.dav227', 'gmail.com'].join('@');
   var endpoint = 'https://formsubmit.co/ajax/' + inbox;
+
+  // One entrée choice per guest, following the guest-count dropdown
+  var ENTREES = [
+    'Panko Parmesan Crusted Chicken with Sherry Cream',
+    'Center Cut Sirloin with Demi-Glacé',
+    'Vegan or Vegetarian'
+  ];
+  var guestCount = document.getElementById('guestCount');
+  var mealField = document.getElementById('mealField');
+  var mealRows = document.getElementById('mealRows');
+
+  function renderMeals() {
+    var declined = form.querySelector('input[name="attending"]:checked');
+    declined = declined && declined.value === 'Regretfully declines';
+    mealField.style.display = declined ? 'none' : '';
+    var prev = {};
+    mealRows.querySelectorAll('select').forEach(function(s){ prev[s.name] = s.value; });
+    mealRows.innerHTML = '';
+    if (declined) return;
+    var n = parseInt(guestCount.value, 10) || 1;
+    for (var i = 1; i <= n; i++) {
+      var name = 'Guest ' + i + ' entrée';
+      var row = document.createElement('div');
+      row.className = 'meal-row';
+      var tag = document.createElement('span');
+      tag.className = 'guest-tag';
+      tag.textContent = 'Guest ' + i;
+      var sel = document.createElement('select');
+      sel.name = name;
+      sel.required = true;
+      var ph = document.createElement('option');
+      ph.value = ''; ph.textContent = 'Select an entrée…';
+      ph.disabled = true; ph.selected = true;
+      sel.appendChild(ph);
+      ENTREES.forEach(function(e){
+        var o = document.createElement('option');
+        o.value = e; o.textContent = e;
+        if (prev[name] === e) { o.selected = true; ph.selected = false; }
+        sel.appendChild(o);
+      });
+      row.appendChild(tag); row.appendChild(sel);
+      mealRows.appendChild(row);
+    }
+  }
+  guestCount.addEventListener('change', renderMeals);
+  form.querySelectorAll('input[name="attending"]').forEach(function(r){
+    r.addEventListener('change', renderMeals);
+  });
+  renderMeals();
 
   form.addEventListener('submit', function(e){
     e.preventDefault();
