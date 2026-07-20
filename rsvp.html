@@ -295,12 +295,20 @@ body {
       tag.textContent = 'Guest ' + i;
       var inputs = document.createElement('div');
       inputs.className = 'meal-inputs';
-      var nameInput = document.createElement('input');
-      nameInput.type = 'text';
-      nameInput.name = nameKey;
-      nameInput.placeholder = 'Full name';
-      nameInput.required = true;
-      if (prev[nameKey]) nameInput.value = prev[nameKey];
+      if (i === 1) {
+        // Guest 1 is the person filling out the form — their name is
+        // the "Your name" field above, so only the entrée is asked here
+        tag.id = 'guest1Tag';
+        updateGuest1Tag(tag);
+      } else {
+        var nameInput = document.createElement('input');
+        nameInput.type = 'text';
+        nameInput.name = nameKey;
+        nameInput.placeholder = 'Full name';
+        nameInput.required = true;
+        if (prev[nameKey]) nameInput.value = prev[nameKey];
+        inputs.appendChild(nameInput);
+      }
       var sel = document.createElement('select');
       sel.name = mealKey;
       sel.required = true;
@@ -314,27 +322,23 @@ body {
         if (prev[mealKey] === e) { o.selected = true; ph.selected = false; }
         sel.appendChild(o);
       });
-      inputs.appendChild(nameInput); inputs.appendChild(sel);
+      inputs.appendChild(sel);
       row.appendChild(tag); row.appendChild(inputs);
       mealRows.appendChild(row);
     }
+  }
+  function updateGuest1Tag(tag) {
+    tag = tag || document.getElementById('guest1Tag');
+    if (!tag) return;
+    var who = document.getElementById('guestName').value.trim();
+    tag.textContent = who ? 'Guest 1 — ' + who : 'Guest 1 (you)';
   }
   guestCount.addEventListener('change', renderMeals);
   form.querySelectorAll('input[name="attending"]').forEach(function(r){
     r.addEventListener('change', renderMeals);
   });
+  document.getElementById('guestName').addEventListener('input', function(){ updateGuest1Tag(); });
   renderMeals();
-
-  // The person filling out the form is Guest 1 — mirror their name until
-  // they type something different in the Guest 1 box themselves
-  var guest1Edited = false;
-  document.getElementById('guestName').addEventListener('input', function(){
-    var g1 = mealRows.querySelector('input[name="Guest 1 name"]');
-    if (g1 && !guest1Edited) g1.value = this.value;
-  });
-  mealRows.addEventListener('input', function(e){
-    if (e.target.name === 'Guest 1 name') guest1Edited = true;
-  });
 
   form.addEventListener('submit', function(e){
     e.preventDefault();
