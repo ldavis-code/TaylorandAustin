@@ -106,14 +106,16 @@ body {
   box-shadow: 0 0 0 3px rgba(201,168,76,.12);
 }
 .field textarea { min-height: 90px; resize: vertical; }
-.meal-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+.meal-row { margin-bottom: 16px; }
 .meal-row .guest-tag {
-  flex: 0 0 68px;
+  display: block; margin-bottom: 6px;
   font-family: 'Cormorant Garamond', serif;
-  font-size: .9rem; letter-spacing: 1px;
+  font-size: .9rem; letter-spacing: 1.5px;
   color: var(--brown-sepia); font-style: italic;
 }
-.meal-row select { flex: 1; }
+.meal-row .meal-inputs { display: flex; gap: 10px; flex-wrap: wrap; }
+.meal-row input[type="text"] { flex: 1 1 180px; }
+.meal-row select { flex: 1 1 240px; }
 .attend-row { display: flex; gap: 12px; flex-wrap: wrap; }
 .attend-option { flex: 1 1 220px; position: relative; }
 .attend-option input { position: absolute; opacity: 0; pointer-events: none; }
@@ -193,8 +195,8 @@ body {
 
   <form class="form-card" id="rsvpForm" novalidate>
     <div class="field">
-      <label for="guestName">Your name(s)</label>
-      <input type="text" id="guestName" name="name" required autocomplete="name" placeholder="First &amp; last name of each guest">
+      <label for="guestName">Your name</label>
+      <input type="text" id="guestName" name="name" required autocomplete="name" placeholder="First &amp; last name">
     </div>
 
     <div class="field">
@@ -227,7 +229,7 @@ body {
     </div>
 
     <div class="field" id="mealField">
-      <label>Entr&eacute;e selection <em style="text-transform:none;letter-spacing:0">(one per guest)</em></label>
+      <label>Your party <em style="text-transform:none;letter-spacing:0">(each guest's name &amp; entr&eacute;e)</em></label>
       <div id="mealRows"></div>
     </div>
 
@@ -279,19 +281,28 @@ body {
     declined = declined && declined.value === 'Regretfully declines';
     mealField.style.display = declined ? 'none' : '';
     var prev = {};
-    mealRows.querySelectorAll('select').forEach(function(s){ prev[s.name] = s.value; });
+    mealRows.querySelectorAll('select, input').forEach(function(el){ prev[el.name] = el.value; });
     mealRows.innerHTML = '';
     if (declined) return;
     var n = parseInt(guestCount.value, 10) || 1;
     for (var i = 1; i <= n; i++) {
-      var name = 'Guest ' + i + ' entrée';
+      var nameKey = 'Guest ' + i + ' name';
+      var mealKey = 'Guest ' + i + ' entrée';
       var row = document.createElement('div');
       row.className = 'meal-row';
       var tag = document.createElement('span');
       tag.className = 'guest-tag';
       tag.textContent = 'Guest ' + i;
+      var inputs = document.createElement('div');
+      inputs.className = 'meal-inputs';
+      var nameInput = document.createElement('input');
+      nameInput.type = 'text';
+      nameInput.name = nameKey;
+      nameInput.placeholder = 'Full name';
+      nameInput.required = true;
+      if (prev[nameKey]) nameInput.value = prev[nameKey];
       var sel = document.createElement('select');
-      sel.name = name;
+      sel.name = mealKey;
       sel.required = true;
       var ph = document.createElement('option');
       ph.value = ''; ph.textContent = 'Select an entrée…';
@@ -300,10 +311,11 @@ body {
       ENTREES.forEach(function(e){
         var o = document.createElement('option');
         o.value = e; o.textContent = e;
-        if (prev[name] === e) { o.selected = true; ph.selected = false; }
+        if (prev[mealKey] === e) { o.selected = true; ph.selected = false; }
         sel.appendChild(o);
       });
-      row.appendChild(tag); row.appendChild(sel);
+      inputs.appendChild(nameInput); inputs.appendChild(sel);
+      row.appendChild(tag); row.appendChild(inputs);
       mealRows.appendChild(row);
     }
   }
@@ -312,6 +324,17 @@ body {
     r.addEventListener('change', renderMeals);
   });
   renderMeals();
+
+  // The person filling out the form is Guest 1 — mirror their name until
+  // they type something different in the Guest 1 box themselves
+  var guest1Edited = false;
+  document.getElementById('guestName').addEventListener('input', function(){
+    var g1 = mealRows.querySelector('input[name="Guest 1 name"]');
+    if (g1 && !guest1Edited) g1.value = this.value;
+  });
+  mealRows.addEventListener('input', function(e){
+    if (e.target.name === 'Guest 1 name') guest1Edited = true;
+  });
 
   form.addEventListener('submit', function(e){
     e.preventDefault();
