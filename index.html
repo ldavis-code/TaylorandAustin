@@ -202,6 +202,11 @@ body {
   flex: 0 1 260px; max-width: 290px;
 }
 .card:hover { transform: translateY(-3px); box-shadow: 0 6px 22px rgba(201,168,76,.1); }
+.card-link { text-decoration: none; color: inherit; cursor: pointer; }
+.card-cta {
+  font-style: italic; color: var(--gold-dark);
+  border-bottom: 1px solid rgba(201,168,76,.5);
+}
 .card .icon { font-size: 1.6rem; margin-bottom: 10px; display: block; }
 .card h3 {
   font-family: 'Cinzel Decorative', serif;
@@ -385,11 +390,11 @@ body {
       <h3>Reception</h3>
       <p>Dinner and celebration immediately following the ceremony.<br><br><em>Dancing &amp; enchantment await.</em></p>
     </div>
-    <div class="card">
+    <a class="card card-link" href="#hotels">
       <span class="icon">&#127769;</span>
       <h3>Accommodations</h3>
-      <p>We've gathered a few lovely places to stay near the venue.<br><br><a href="#hotels" style="color:inherit"><em>See our hotel suggestions</em></a></p>
-    </div>
+      <p>We've gathered a few lovely places to stay near the venue.<br><br><span class="card-cta">View Hotels &rarr;</span></p>
+    </a>
   </div>
 </div>
 
