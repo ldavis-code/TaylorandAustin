@@ -265,6 +265,9 @@ body {
   // Assembled at runtime to keep the address away from address-harvesting bots
   var inbox = ['tl.dav227', 'gmail.com'].join('@');
   var endpoint = 'https://formsubmit.co/ajax/' + inbox;
+  // Google Sheet web app that keeps a running list of RSVPs
+  // (see rsvp-sheet/Code.gs). Leave blank to send by email only.
+  var SHEET_URL = 'https://script.google.com/macros/s/AKfycbxfSSBQfup0nTg0Xa7_Z-wP8Ix0ezQ1G-1NnomtkyN7KhS2AYgTQxQMke-kOS_tspB_/exec';
 
   // One entrée choice per guest, following the guest-count dropdown
   var ENTREES = [
@@ -351,17 +354,39 @@ body {
     btn.textContent = 'Sending…';
 
     var data = new FormData(form);
-    data.append('_subject', 'Wedding RSVP — ' + (data.get('name') || 'Guest'));
-    data.append('_template', 'table');
 
-    fetch(endpoint, {
+    // Email copy via FormSubmit. It answers success "false" (e.g. while
+    // the form still needs activation), so check the body, not just the status.
+    var mail = new FormData(form);
+    mail.append('_subject', 'Wedding RSVP — ' + (data.get('name') || 'Guest'));
+    mail.append('_template', 'table');
+    var emailSent = fetch(endpoint, {
       method: 'POST',
-      body: data,
+      body: mail,
       headers: { 'Accept': 'application/json' }
     }).then(function(res){
       if (!res.ok) throw new Error('Request failed');
       return res.json();
-    }).then(function(){
+    }).then(function(json){
+      if (String(json.success) !== 'true') throw new Error('Not delivered');
+    });
+
+    // Spreadsheet copy
+    var sheetSaved = SHEET_URL ? fetch(SHEET_URL, {
+      method: 'POST',
+      body: new URLSearchParams(data)
+    }).then(function(res){
+      if (!res.ok) throw new Error('Request failed');
+      return res.json();
+    }).then(function(json){
+      if (json.result !== 'success') throw new Error('Not saved');
+    }) : Promise.reject(new Error('No sheet'));
+
+    // Thank the guest if either copy reached the couple
+    Promise.allSettled([emailSent, sheetSaved]).then(function(results){
+      if (!results.some(function(r){ return r.status === 'fulfilled'; })) {
+        throw new Error('Not delivered');
+      }
       form.style.display = 'none';
       document.getElementById('thanksCard').style.display = 'block';
       document.querySelector('.divider').scrollIntoView({behavior:'smooth'});
