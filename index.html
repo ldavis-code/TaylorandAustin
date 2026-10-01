@@ -13,6 +13,7 @@
 }
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 html { scroll-behavior: smooth; }
+.section { scroll-margin-top: 50px; }
 body {
   font-family: 'EB Garamond', 'Cormorant Garamond', serif;
   color: var(--text-brown); overflow-x: hidden;
@@ -212,6 +213,23 @@ body {
   font-size: .95rem; line-height: 1.7; color: var(--brown-walnut);
 }
 
+/* Hotels */
+.hotel-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px; margin-top: 24px; width: 100%; max-width: 860px;
+}
+.hotel-grid .card { max-width: none; display: flex; flex-direction: column; align-items: center; }
+.hotel-grid .card h3 { font-size: .78rem; line-height: 1.6; }
+.hotel-grid .distance { font-style: italic; margin-bottom: 14px; }
+.hotel-link {
+  margin-top: auto; display: inline-block; padding: 8px 22px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: .78rem; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--gold-dark); text-decoration: none;
+  border: 1px solid rgba(201,168,76,.5); transition: .3s;
+}
+.hotel-link:hover { background: var(--gold); color: var(--cream); }
+
 /* Countdown */
 .countdown-row {
   display: flex; justify-content: center;
@@ -293,7 +311,9 @@ body {
   <a href="#hero">Home</a>
   <a href="#story">Our Story</a>
   <a href="#details">Details</a>
+  <a href="#hotels">Hotels</a>
   <a href="#rsvp">RSVP</a>
+  <a href="#registry">Registry</a>
 </nav>
 
 <!-- ===== HERO — Your artwork as the frame ===== -->
@@ -368,7 +388,49 @@ body {
     <div class="card">
       <span class="icon">&#127769;</span>
       <h3>Accommodations</h3>
-      <p>Details on lodging and travel will be shared soon.<br><br><em>Boulder is beautiful to explore!</em></p>
+      <p>We've gathered a few lovely places to stay near the venue.<br><br><a href="#hotels" style="color:inherit"><em>See our hotel suggestions</em></a></p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ACCOMMODATIONS ===== -->
+<div class="section fade-in" id="hotels">
+  <h2 class="section-title">Accommodations</h2>
+  <p class="section-sub">A cozy place to rest your head</p>
+  <div class="section-line"></div>
+  <div class="section-body">
+    <p>For guests traveling in, here are a few hotels near the venue, listed from closest to farthest.</p>
+  </div>
+  <div class="hotel-grid">
+    <div class="card">
+      <h3>A-Lodge Boulder</h3>
+      <p class="distance">0.5 miles from Boulder Creek</p>
+      <a class="hotel-link" href="https://a-lodge.com/" target="_blank" rel="noopener">Visit Website</a>
+    </div>
+    <div class="card">
+      <h3>Hotel Boulderado</h3>
+      <p class="distance">2.5 miles from Boulder Creek</p>
+      <a class="hotel-link" href="https://www.boulderado.com/" target="_blank" rel="noopener">Visit Website</a>
+    </div>
+    <div class="card">
+      <h3>Residence Inn by Marriott Boulder Canyon Boulevard</h3>
+      <p class="distance">3.4 miles from Boulder Creek</p>
+      <a class="hotel-link" href="https://www.marriott.com/en-us/hotels/vbobl-residence-inn-boulder-canyon-boulevard/overview/" target="_blank" rel="noopener">Visit Website</a>
+    </div>
+    <div class="card">
+      <h3>Embassy Suites Boulder</h3>
+      <p class="distance">3.5 miles from Boulder Creek</p>
+      <a class="hotel-link" href="https://www.hilton.com/en/hotels/denboes-embassy-suites-boulder/" target="_blank" rel="noopener">Visit Website</a>
+    </div>
+    <div class="card">
+      <h3>Hilton Garden Inn Boulder</h3>
+      <p class="distance">3.5 miles from Boulder Creek</p>
+      <a class="hotel-link" href="https://www.hilton.com/en/hotels/wbubogi-hilton-garden-inn-boulder/" target="_blank" rel="noopener">Visit Website</a>
+    </div>
+    <div class="card">
+      <h3>Residence Inn by Marriott Boulder</h3>
+      <p class="distance">4.4 miles from Boulder Creek</p>
+      <a class="hotel-link" href="https://www.marriott.com/en-us/hotels/vbocg-residence-inn-boulder/overview/" target="_blank" rel="noopener">Visit Website</a>
     </div>
   </div>
 </div>
@@ -384,6 +446,17 @@ body {
     <p><em>Kindly respond by March 12, 2027</em></p>
   </div>
   <a href="rsvp.html" class="rsvp-btn">RSVP</a>
+</div>
+
+<!-- ===== REGISTRY ===== -->
+<div class="section fade-in" id="registry">
+  <h2 class="section-title">Registry</h2>
+  <p class="section-sub">With love and gratitude</p>
+  <div class="section-line"></div>
+  <div class="section-body">
+    <p>Your presence at our wedding is the greatest gift of all. For those who wish to honor us with a gift, we have created a honeymoon fund to help us begin our next adventure together.</p>
+  </div>
+  <a href="https://www.honeyfund.com/site/davis-smith-bartlett-04-27-2027" target="_blank" rel="noopener" class="rsvp-btn">View Registry</a>
 </div>
 
 <!-- ===== FOOTER — artwork bookend ===== -->
