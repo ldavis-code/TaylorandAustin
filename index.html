@@ -241,6 +241,35 @@ body {
 }
 .hotel-link:hover { background: var(--gold); color: var(--cream); }
 
+/* FAQ */
+.faq-list { width: 100%; max-width: 640px; margin-top: 8px; }
+.faq-item {
+  border-bottom: 1px solid rgba(201,168,76,.3);
+}
+.faq-item summary {
+  list-style: none; cursor: pointer;
+  display: flex; justify-content: space-between; align-items: center; gap: 16px;
+  padding: 18px 4px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.05rem, 2vw, 1.2rem); font-weight: 600;
+  color: var(--text-brown);
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after {
+  content: '+'; flex-shrink: 0;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem; line-height: 1; color: var(--gold-dark);
+  transition: transform .3s;
+}
+.faq-item[open] summary::after { transform: rotate(45deg); }
+.faq-item summary:hover { color: var(--gold-dark); }
+.faq-item p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1rem, 1.8vw, 1.1rem); line-height: 1.8;
+  color: var(--brown-choc); padding: 0 4px 20px;
+}
+.faq-item a { color: var(--gold-dark); }
+
 /* Countdown */
 .countdown-row {
   display: flex; justify-content: center;
@@ -310,7 +339,9 @@ body {
   .section { padding: 60px 25px; }
 }
 @media(max-width:480px) {
-  .nav { gap:8px; } .nav a { font-size:.62rem; letter-spacing:1.5px; }
+  .nav { gap:6px 12px; flex-wrap:wrap; padding:10px 10px; }
+  .nav a { font-size:.62rem; letter-spacing:1.5px; white-space:nowrap; }
+  .nav a[href="#hero"] { display:none; }
   .hero-content { padding: 30px 15px; }
   .section { padding: 50px 18px; }
 }
@@ -323,6 +354,7 @@ body {
   <a href="#story">Our Story</a>
   <a href="#details">Details</a>
   <a href="#hotels">Hotels</a>
+  <a href="#faq">FAQ</a>
   <a href="#rsvp">RSVP</a>
   <a href="#registry">Registry</a>
 </nav>
@@ -458,6 +490,51 @@ body {
       <p class="distance">4.4 miles from Boulder Creek</p>
       <a class="hotel-link" href="https://www.marriott.com/en-us/hotels/vbocg-residence-inn-boulder/overview/" target="_blank" rel="noopener">Visit Website</a>
     </div>
+  </div>
+</div>
+
+<!-- ===== FAQ ===== -->
+<div class="section fade-in" id="faq">
+  <h2 class="section-title">Questions &amp; Answers</h2>
+  <p class="section-sub">A few things to know before you go</p>
+  <div class="section-line"></div>
+  <div class="faq-list">
+    <details class="faq-item">
+      <summary>Where should I fly into?</summary>
+      <p>Denver International Airport (DEN) is the closest major airport. Plan on a 45 to 60 minute drive to Boulder, depending on traffic.</p>
+    </details>
+    <details class="faq-item">
+      <summary>How do I get from the airport to Boulder?</summary>
+      <p>A rental car is the easiest option and lets you explore while you&rsquo;re here. Rideshare works well too, and RTD&rsquo;s airport bus (route AB1) runs between DEN and downtown Boulder.</p>
+    </details>
+    <details class="faq-item">
+      <summary>How far is the venue from town?</summary>
+      <p>Boulder Creek sits about three miles up Boulder Canyon, roughly 10 to 15 minutes from downtown. It&rsquo;s a winding two-lane canyon road, so give yourself extra time. Please arrive by 3:30 PM.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Is there parking?</summary>
+      <p>Yes, there is on-site parking at the venue. If you plan to toast with us, rideshare is a great choice. Parking is free.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Will the ceremony be outdoors?</summary>
+      <p>We&rsquo;re planning an outdoor ceremony beside the creek, with a beautiful indoor space ready if the weather has other ideas.</p>
+    </details>
+    <details class="faq-item">
+      <summary>What will the weather be like?</summary>
+      <p>Late April in the Colorado foothills likes to keep everyone guessing. Afternoons are often in the 50s or 60s, evenings can dip into the 30s or 40s, and a spring snow shower is not out of the question. The canyon cools quickly once the sun slips behind the walls.</p>
+    </details>
+    <details class="faq-item">
+      <summary>What should I wear?</summary>
+      <p>Semi-formal, with all the whimsy you&rsquo;d like. Bring a wrap, shawl, or jacket for the evening. The ceremony is on grass and stone, so block heels, wedges, or flats will serve you better than stilettos.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Anything to know about the altitude?</summary>
+      <p>Boulder sits at about 5,300 feet, and the venue is a little higher. Drink plenty of water, pace yourself with alcohol on your first day, and wear sunscreen even if it&rsquo;s cool.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Who do I contact with questions?</summary>
+      <p>Lorrinda Gray-Davis<br><a href="tel:+16025413277">602-541-3277</a><br><a href="mailto:Ldavis@trioweb.org">Ldavis@trioweb.org</a></p>
+    </details>
   </div>
 </div>
 
