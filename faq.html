@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Questions &amp; Answers | Taylor Davis & Austin Smith-Bartlett</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Great+Vibes&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold: #c9a84c; --gold-light: #e8d48b; --gold-dark: #9e7a2d;
+  --emerald: #2d6b3f; --sage: #87a878; --cream: #faf6e9;
+  --text-brown: #4a3520; --brown-sepia: #8b6f47;
+  --brown-walnut: #6d4c41; --brown-choc: #5d4037;
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'EB Garamond', 'Cormorant Garamond', serif;
+  color: var(--text-brown); overflow-x: hidden;
+  background: var(--cream);
+  min-height: 100vh;
+  position: relative;
+}
+.page-bg {
+  position: fixed; inset: 0;
+  background: url('border.png') center center / cover no-repeat;
+  z-index: 0;
+}
+.page-bg::after {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse 70% 75% at 50% 50%,
+    rgba(250,246,233,.95) 0%,
+    rgba(250,246,233,.85) 45%,
+    rgba(250,246,233,.5) 100%);
+}
+.wrap {
+  position: relative; z-index: 2;
+  max-width: 640px; margin: 0 auto;
+  padding: 60px 24px 80px;
+  text-align: center;
+}
+.back-link {
+  display: inline-block; margin-bottom: 30px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: .8rem; letter-spacing: 3px; text-transform: uppercase;
+  text-decoration: none; color: var(--brown-walnut); transition: .3s;
+}
+.back-link:hover { color: var(--gold-dark); }
+.page-sub {
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  color: var(--gold-dark); margin-bottom: 4px;
+}
+.page-title {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: clamp(1.4rem, 3.5vw, 2rem);
+  letter-spacing: 4px; color: var(--text-brown);
+  margin-bottom: 10px;
+}
+.page-detail {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic; font-weight: 300;
+  font-size: clamp(.95rem, 2.2vw, 1.15rem);
+  color: var(--brown-sepia); letter-spacing: 2px;
+  margin-bottom: 24px;
+}
+.divider {
+  width: 160px; height: 1.5px; margin: 0 auto 34px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  position: relative;
+}
+.divider::after {
+  content: '\2726'; position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  font-size: 12px; color: var(--gold);
+}
+.faq-card {
+  text-align: left; padding: 14px 34px 20px;
+  border: 1px solid rgba(201,168,76,.25);
+  background: rgba(255,255,255,.75);
+  box-shadow: 0 4px 24px rgba(74,53,32,.07);
+}
+
+/* FAQ */
+.faq-item { border-bottom: 1px solid rgba(201,168,76,.3); }
+.faq-item:last-child { border-bottom: none; }
+.faq-item summary {
+  list-style: none; cursor: pointer;
+  display: flex; justify-content: space-between; align-items: center; gap: 16px;
+  padding: 18px 4px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.05rem, 2vw, 1.2rem); font-weight: 600;
+  color: var(--text-brown);
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after {
+  content: '+'; flex-shrink: 0;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem; line-height: 1; color: var(--gold-dark);
+  transition: transform .3s;
+}
+.faq-item[open] summary::after { transform: rotate(45deg); }
+.faq-item summary:hover { color: var(--gold-dark); }
+.faq-item p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1rem, 1.8vw, 1.1rem); line-height: 1.8;
+  color: var(--brown-choc); padding: 0 4px 20px;
+}
+.faq-item a { color: var(--gold-dark); }
+
+.footer-note {
+  margin-top: 40px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: .85rem; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--brown-sepia); opacity: .85;
+}
+@media(max-width:480px) {
+  .wrap { padding: 40px 16px 60px; }
+  .faq-card { padding: 6px 18px 12px; }
+}
+</style>
+</head>
+<body>
+
+<div class="page-bg"></div>
+
+<div class="wrap">
+  <a class="back-link" href="index.html#details">&larr; Back to our wedding</a>
+
+  <p class="page-sub">A few things to know before you go</p>
+  <h1 class="page-title">Questions &amp; Answers</h1>
+  <p class="page-detail">Tuesday, April 27, 2027 &middot; Boulder, Colorado</p>
+  <div class="divider"></div>
+
+  <div class="faq-card">
+    <details class="faq-item">
+      <summary>Where should I fly into?</summary>
+      <p>Denver International Airport (DEN) is the closest major airport. Plan on a 45 to 60 minute drive to Boulder, depending on traffic.</p>
+    </details>
+    <details class="faq-item">
+      <summary>How do I get from the airport to Boulder?</summary>
+      <p>A rental car is the easiest option and lets you explore while you&rsquo;re here. Rideshare works well too, and RTD&rsquo;s airport bus (route AB1) runs between DEN and downtown Boulder.</p>
+    </details>
+    <details class="faq-item">
+      <summary>How far is the venue from town?</summary>
+      <p>Boulder Creek sits about three miles up Boulder Canyon, roughly 10 to 15 minutes from downtown. It&rsquo;s a winding two-lane canyon road, so give yourself extra time. Please arrive by 3:30 PM.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Is there parking?</summary>
+      <p>Yes, there is on-site parking at the venue. If you plan to toast with us, rideshare is a great choice. Parking is free.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Will the ceremony be outdoors?</summary>
+      <p>We&rsquo;re planning an outdoor ceremony beside the creek, with a beautiful indoor space ready if the weather has other ideas.</p>
+    </details>
+    <details class="faq-item">
+      <summary>What will the weather be like?</summary>
+      <p>Late April in the Colorado foothills likes to keep everyone guessing. Afternoons are often in the 50s or 60s, evenings can dip into the 30s or 40s, and a spring snow shower is not out of the question. The canyon cools quickly once the sun slips behind the walls.</p>
+    </details>
+    <details class="faq-item">
+      <summary>What should I wear?</summary>
+      <p>Semi-formal, with all the whimsy you&rsquo;d like. Bring a wrap, shawl, or jacket for the evening. The ceremony is on grass and stone, so block heels, wedges, or flats will serve you better than stilettos.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Anything to know about the altitude?</summary>
+      <p>Boulder sits at about 5,300 feet, and the venue is a little higher. Drink plenty of water, pace yourself with alcohol on your first day, and wear sunscreen even if it&rsquo;s cool.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Who do I contact with questions?</summary>
+      <p>Lorrinda Gray-Davis<br><a href="tel:+16025413277">602-541-3277</a><br><a href="mailto:Ldavis@trioweb.org">Ldavis@trioweb.org</a></p>
+    </details>
+  </div>
+
+  <p class="footer-note">Taylor &amp; Austin &middot; April 27, 2027</p>
+</div>
+
+</body>
+</html>
